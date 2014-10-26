@@ -8,6 +8,8 @@ Folgende Nodes haben Statistiken übermittelt.<p />
       <th>#</th>
       <th>ID (dezimal)</th>
       <th>Hostname</th>
+      <th>Aktiv</th>
+      <th>Letzter Datensatz übermittelt</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +19,13 @@ Folgende Nodes haben Statistiken übermittelt.<p />
         <td><%= row+=1  %></td>
         <td><%= link_to "#{node.id}".rjust(15,'0'), node_path(node.id) %></td>
         <td><%= link_to node.name, node_path(node.id) %></td>
+        <td> 
+          <% if active?(node) %>
+            <span class="label label-success">Ja</span>
+          <% else %>
+            <span class="label label-danger">Nein</span>
+          <% end %> 
+        <td><%= node.last_submitted_timestamp %>
         <td><%#= node.name %></td>
         <td><%#=l node.created_at %></td>
         <td>

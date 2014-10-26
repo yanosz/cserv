@@ -29,7 +29,9 @@ class Node
 		n
 	end
 
-	
+	def last_submitted_timestamp
+		File.mtime(Dir["#{path}/**/*.rrd"].max_by {|f| File.mtime(f)})
+	end	
 
 	def collectd_stats
 		Dir["#{path}/*"].map do |path|
