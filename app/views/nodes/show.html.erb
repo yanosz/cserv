@@ -1,0 +1,69 @@
+<div class="page-header">
+  <h1>Statistiken zu Node <%= @node.node_id %></h1>
+</div>
+
+<% @node.collectd_stats.each do |stat| %>
+<div class="page-header">
+	<h2><%= stat.name %></h2>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+		  			<th>Name</th>
+		  			<th>Größe</th>
+		  			<th>Letzte Änderung</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% stat.data_files.each do |f| %>
+			    <tr>
+					    <td><%= File.basename(f.path)  %></td>
+					    <td><%= f.size / 1024  %> KB</td>
+					    <td><%= f.mtime  %></td>
+			    </tr>
+			    <% end %>
+		  </tbody>
+		</table>
+  </div>
+  <div class="col-md-1">
+  	<!-- Eine Graphik RTT / Loss fuer jeden Ping-Host -->
+	<% if ping?(stat) %>
+		<% stat.data_files.each do |f| %>
+			<!-- Droprate, STDEV verwerfen, Dateien haben die Form ping-fdd3:5d16:b5dd:3::6.rrd -->
+			<% if md = File.basename(f.path).match('^ping-(.+).rrd') %>
+				<img src ="<%= node_stat_path(@node.id,'ping')%>.png?secs=86400&width=600&height=200&target=<%= File.basename(f.path) %>" />
+			<% end %>
+		<% end %>
+	<% end %>  	
+
+
+  	<!-- Eine Graphik RX/TX fuer jedes Interface -->
+	<% if interface?(stat) %>
+		<% stat.data_files.each do |f| %>
+			<!-- Droprate, STDEV verwerfen, Dateien haben die Form ping-fdd3:5d16:b5dd:3::6.rrd -->
+			<% if md = File.basename(f.path).match('^if_octets-(.+).rrd') %>
+				<img src ="<%= node_stat_path(@node.id,'interface')%>.png?secs=86400&width=600&height=200&target=<%= File.basename(f.path) %>" />
+			<% end %>
+		<% end %>
+	<% end %>  	
+
+  	<!-- Eine Graphik (Stations) fuer jedes wlan-Interface -->
+	<% if iwinfo?(stat) %>
+		<% stat.data_files.each do |f| %>
+			<!-- Droprate, STDEV verwerfen, Dateien haben die Form ping-fdd3:5d16:b5dd:3::6.rrd -->
+			<% if md = File.basename(f.path).match('stations.rrd') %>
+				<img src ="<%= node_stat_path(@node.id,'iwinfo')%>.png?secs=86400&width=600&height=200&target=<%= iwinfo_dir(f.path) %>" />
+			<% end %>
+		<% end %>
+	<% end %>  	
+
+
+  </div>
+</div>
+
+	
+<% end %>
+
