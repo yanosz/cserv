@@ -50,7 +50,7 @@ class Node
 		begin
 			self.stat_template("ping",@@default_ping_target).rtt_5_min
 		rescue Exception => e
-			log.error "Unable to calcuate rtt_5_min #{e}"		
+			logger.error "Unable to calcuate rtt_5_min #{e}"		
 			Float::NAN
 		end
 	end
@@ -59,7 +59,7 @@ class Node
 		begin
 			self.stat_template("ping",@@default_ping_target).loss_5_min
 		rescue Exception => e
-			log.error "Unable to calcuate loss_5_min #{e}"		
+			logger.error "Unable to calcuate loss_5_min #{e}"		
 			Float::NAN
 		end
 	end
