@@ -47,12 +47,21 @@ class Node
 	end
 
 	def rtt_5_min
-		self.stat_template("ping",@@default_ping_target).rtt_5_min
-
+		begin
+			self.stat_template("ping",@@default_ping_target).rtt_5_min
+		rescue Exception => e
+			log.error "Unable to calcuate rtt_5_min #{e}"		
+			Float::NAN
+		end
 	end
 
 	def loss_5_min
-		self.stat_template("ping",@@default_ping_target).loss_5_min
+		begin
+			self.stat_template("ping",@@default_ping_target).loss_5_min
+		rescue Exception => e
+			log.error "Unable to calcuate loss_5_min #{e}"		
+			Float::NAN
+		end
 	end
 
 	@@plugins = {"ping" => Collectd::Stats::PingStat,
