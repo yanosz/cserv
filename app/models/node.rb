@@ -1,4 +1,5 @@
 class Node
+	
 	@@base_dir = Rails.configuration.database_configuration[Rails.env]["rrd_path"]
 	@@default_ping_target = Rails.configuration.database_configuration[Rails.env]["rtt_target"]
 	attr_accessor :id
@@ -50,7 +51,7 @@ class Node
 		begin
 			self.stat_template("ping",@@default_ping_target).rtt_5_min
 		rescue Exception => e
-			logger.error "Unable to calcuate rtt_5_min #{e}"		
+			Rails.logger.error "Unable to calcuate rtt_5_min #{e}"		
 			Float::NAN
 		end
 	end
@@ -59,7 +60,7 @@ class Node
 		begin
 			self.stat_template("ping",@@default_ping_target).loss_5_min
 		rescue Exception => e
-			logger.error "Unable to calcuate loss_5_min #{e}"		
+			Rails.logger.error "Unable to calcuate loss_5_min #{e}"		
 			Float::NAN
 		end
 	end
