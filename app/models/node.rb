@@ -1,5 +1,6 @@
 class Node
 	@@base_dir = Rails.configuration.database_configuration[Rails.env]["rrd_path"]
+	@@default_ping_target = Rails.configuration.database_configuration[Rails.env]["rtt_target"]
 	attr_accessor :id
 	attr_accessor :name
 	def self.all
@@ -43,6 +44,15 @@ class Node
 
 	def node_id 
 		self.id.to_s(16)
+	end
+
+	def rtt_5_min
+		self.stat_template("ping",@@default_ping_target).rtt_5_min
+
+	end
+
+	def loss_5_min
+		self.stat_template("ping",@@default_ping_target).loss_5_min
 	end
 
 	@@plugins = {"ping" => Collectd::Stats::PingStat,

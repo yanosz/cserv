@@ -5,6 +5,20 @@ class NodesController < ApplicationController
   # GET /nodes.json
   def index
     @nodes = Node.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json do 
+        data = {}
+        @nodes.each do |n|
+          loss_5_min = n.loss_5_min
+          rtt_5_min = n.rtt_5_min 
+          data[n.id] = {id_hex: n.node_id, 
+            loss_5_min: (loss_5_min.nil? || loss_5_min.nan?) ? nil : loss_5_min, 
+            rtt_5_min: (rtt_5_min.nil? || rtt_5_min.nan?) ? nil : rtt_5_min}
+        end
+        render json: data
+      end
+    end
   end
 
   # GET /nodes/1

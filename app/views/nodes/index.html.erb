@@ -9,6 +9,8 @@ Folgende Nodes haben Statistiken übermittelt.<p />
       <th>ID (dezimal)</th>
       <th>Hostname</th>
       <th>Aktiv</th>
+      <th>RTT 5 min</th>
+      <th>Loss 5 min</th>
       <th>Letzter Datensatz übermittelt</th>
     </tr>
   </thead>
@@ -25,18 +27,10 @@ Folgende Nodes haben Statistiken übermittelt.<p />
           <% else %>
             <span class="label label-danger">Nein</span>
           <% end %> 
-        <td><%= node.last_submitted_timestamp %>
-        <td><%#= node.name %></td>
-        <td><%#=l node.created_at %></td>
-        <td>
-          <%#= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_node_path(node), :class => 'btn btn-default btn-xs' %>
-          <%#= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      node_path(node),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
+        <td><%= node.rtt_5_min %></td>
+        <td><%= node.loss_5_min %></td>
+          
+        <td><%= node.last_submitted_timestamp %></td>
       </tr>
     <% end %>
   </tbody>

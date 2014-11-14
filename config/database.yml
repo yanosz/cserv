@@ -11,6 +11,7 @@ default: &default
 
 development:
   rrd_path: /home/jan/freifunk/cserv/test_data/rrd
+  rtt_target: ping-fdd3:5d16:b5dd:3::6.rrd
   <<: *default
   database: db/development.sqlite3
 
@@ -19,10 +20,12 @@ development:
 # Do not set this db to the same as development or production.
 test:
   rrd_path: /home/jan/freifunk/cserv/test_data/rrd
+  rtt_target: ping-fdd3:5d16:b5dd:3::6.rrd
   <<: *default
   database: db/test.sqlite3
 
 production:
   rrd_path: /home/jan/freifunk/cserv/test_data/rrd
+  rtt_target: ping-fdd3:5d16:b5dd:3::6.rrd
   <<: *default
   database: db/production.sqlite3
