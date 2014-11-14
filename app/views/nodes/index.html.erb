@@ -27,8 +27,8 @@ Folgende Nodes haben Statistiken übermittelt.<p />
           <% else %>
             <span class="label label-danger">Nein</span>
           <% end %> 
-        <td><%= node.rtt_5_min %></td>
-        <td><%= node.loss_5_min %></td>
+        <td><%= node.rtt_5_min.round 2 %></td>
+        <td><%= node.loss_5_min.round 2 %></td>
           
         <td><%= node.last_submitted_timestamp %></td>
       </tr>
