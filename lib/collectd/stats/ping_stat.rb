@@ -45,7 +45,7 @@ class Collectd::Stats::PingStat
       :end => (Time.now - 5).to_i.to_s,
       ) #5 min back
     points = result[:data]['value'].collect {|s| ( s.nan? ) ? 100 : s  }
-    points.inject{ |sum, el| sum + el }.to_f / points.size
+    points.inject{ |sum, el| sum + el }.to_f / points.size / 100.0
     
   end
   
