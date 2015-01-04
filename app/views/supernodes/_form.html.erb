@@ -1,0 +1,17 @@
+<%= form_for(@supernode) do |f| %>
+  <% if @supernode.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@supernode.errors.count, "error") %> prohibited this supernode from being saved:</h2>
+
+      <ul>
+      <% @supernode.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

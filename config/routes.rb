@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :supernodes
+
   resources :nodes do
     resources :stats
   end

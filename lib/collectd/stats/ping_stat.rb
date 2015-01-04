@@ -40,8 +40,11 @@ class Collectd::Stats::PingStat
 
   def loss_5_min
     rrd = Errand.new(:filename => drop_rrd)
-    result = rrd.fetch(:start => (Time.now - 300).to_i.to_s) #5 min back
-    points = result[:data]['value'].select {|s| !s.nan?}
+    result = rrd.fetch(
+      :start => (Time.now - 300).to_i.to_s,
+      :end => (Time.now - 5).to_i.to_s,
+      ) #5 min back
+    points = result[:data]['value'].collect {|s| ( s.nan? ) ? 1.00 : s  }
     points.inject{ |sum, el| sum + el }.to_f / points.size
     
   end

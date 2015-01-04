@@ -1,0 +1,23 @@
+<h1>Listing supernodes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @supernodes.each do |supernode| %>
+      <tr>
+        <td><%= link_to 'Show', supernode %></td>
+        <td><%= link_to 'Edit', edit_supernode_path(supernode) %></td>
+        <td><%= link_to 'Destroy', supernode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Supernode', new_supernode_path %>
