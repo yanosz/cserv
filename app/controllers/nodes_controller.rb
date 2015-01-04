@@ -13,7 +13,7 @@ class NodesController < ApplicationController
           loss_5_min = n.loss_5_min
           rtt_5_min = n.rtt_5_min 
           data[n.id] = {id_hex: n.node_id, 
-            loss_5_min: (loss_5_min.nil? || loss_5_min.nan?) ? nil : loss_5_min, 
+            loss_5_min: (loss_5_min.nil? || loss_5_min.nan?) ? 1.0 : loss_5_min / 1.0, 
             rtt_5_min: (rtt_5_min.nil? || rtt_5_min.nan?) ? nil : rtt_5_min}
         end
         render json: data
